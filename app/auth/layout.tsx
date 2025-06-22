@@ -17,8 +17,13 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       <Grid size={{ xs: 12, md: 6 }}>
         <Box
           sx={{
-            height: '100%', backgroundColor: '#2e1065', justifyContent: 'center',
-            display: { xs: 'none', sm: 'flex' }, // 👈 aquí se oculta en móviles
+            height: '100%', backgroundColor: '#2e1065',
+            justifyContent: 'center',
+            display: { sm: 'flex' },
+            alignItems: {
+              xs: 'center',
+              md: 'start'
+            },
             backgroundImage: {
               xs: 'none',
               md: 'url("/grafico.svg")'

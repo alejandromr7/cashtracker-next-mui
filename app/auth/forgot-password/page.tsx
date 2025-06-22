@@ -1,6 +1,4 @@
 import ForgotPasswordForm from '@/components/auth/ForgotPasswordForm';
-import LoginForm from '@/components/auth/LoginForm';
-import RegisterForm from '@/components/auth/RegisterForm';
 import NextLink from 'next/link';
 import { Box, Link, Typography } from '@mui/material';
 import type { Metadata } from 'next'
@@ -23,7 +21,7 @@ export default function ForgotPage() {
       <ForgotPasswordForm />
 
 
-      <Box component="nav" sx={{ mt: 10, display: 'flex', flexDirection: 'column', gap: 2, alignItems: 'center' }}>
+      <Box component="nav" sx={{ mt: 5, display: 'flex', flexDirection: 'column', gap: 2, alignItems: 'center' }}>
         <Link
           href="/auth/login"
           color="textSecondary"

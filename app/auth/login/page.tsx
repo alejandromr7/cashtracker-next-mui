@@ -18,7 +18,7 @@ export default function LoginPage() {
 
       <LoginForm />
 
-      <Box component="nav" sx={{ mt: 10, display: 'flex', flexDirection: 'column', gap: 2, alignItems: 'center' }}>
+      <Box component="nav" sx={{ mt: 5, display: 'flex', flexDirection: 'column', gap: 2, alignItems: 'center' }}>
         <Link
           href="/auth/register"
           color="textSecondary"
