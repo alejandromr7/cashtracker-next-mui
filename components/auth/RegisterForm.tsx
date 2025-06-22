@@ -82,9 +82,9 @@ export default function RegisterForm() {
             mt: 1,
             py: 1,
             fontSize: '1rem',
-            backgroundColor: '#4a148c',
+            backgroundColor: '#2e1065',
             ':hover': {
-              backgroundColor: '#6a1b9a',
+              backgroundColor: '#4a148c',
             },
           }}
         >
