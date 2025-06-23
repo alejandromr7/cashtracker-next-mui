@@ -1,14 +1,38 @@
 'use client'
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Box, TextField, Typography, Button, Container } from '@mui/material';
+import { useFormState } from 'react-dom';
+import { authenticate } from '@/actions/authenticate-user-action';
+import { toast } from 'react-toastify';
 
 export default function LoginForm() {
+
+
+  const [state, dispatch] = useFormState(authenticate, {
+    errors: [],
+    success: ''
+  })
+
+  useEffect(() => {
+    if (state.errors) {
+      state.errors.forEach(e => {
+        toast.error(e)
+      })
+    }
+
+    if (state.success) {
+      toast.success(`Welcome`)
+    }
+
+  }, [state])
+
   return (
     <Container maxWidth='sm'>
       <Box
         component="form"
         noValidate
+        action={dispatch}
         sx={{
           mt: 7,
           display: 'flex',
