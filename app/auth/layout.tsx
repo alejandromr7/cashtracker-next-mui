@@ -1,4 +1,5 @@
 import Logo from '@/components/ui/Logo';
+import ToastNotification from '@/components/ui/ToastNotification';
 import { Box, Container } from '@mui/material';
 import Grid from '@mui/material/Grid';
 
@@ -48,6 +49,8 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       <Grid size={{ xs: 12, md: 6 }} sx={{ mx: 'auto', my: 'auto' }}>
         {children}
       </Grid>
+
+      <ToastNotification />
     </Grid>
   );
 }

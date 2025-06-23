@@ -15,3 +15,8 @@ export const RegisterSchema = z.object({
 
 export const SuccessSchema = z.string()
 export const ErrorResponseSchema = z.string()
+
+
+
+
+export const TokenSchema = z.string({ message: 'Toen is not valid' }).length(6, { message: 'Must be 6 digits' })
