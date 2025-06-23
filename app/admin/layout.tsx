@@ -1,18 +1,21 @@
+import HomeLayout from '@/components/admin/HomeLayout';
 import { verifySession } from '@/src/auth/dal';
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: '',
-  description: ''
+  title: 'Admin',
+  description: 'Admin'
 }
 
 export default async function AdminLayout({ children }: { children: React.ReactNode }) {
 
-  await verifySession()
+  const { user } = await verifySession()
 
   return (
     <>
-      {children}
+      <HomeLayout user={user} >
+        {children}
+      </HomeLayout>
     </>
   );
 };

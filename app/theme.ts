@@ -47,7 +47,12 @@ const theme = createTheme({
   typography: {
     fontFamily: outfit.style.fontFamily,
     h1: {
-      fontSize: '4.5rem',
+      [`@media (min-width:300px)`]: {
+        fontSize: '2.5rem',
+      },
+      [`@media (min-width:900px)`]: {
+        fontSize: '4.5rem',
+      },
       fontWeight: 900, // máximo reconocido por la fuente Outfit
       color: primaryColor,
       textAlign: 'center',

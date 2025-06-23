@@ -1,3 +1,4 @@
+import { Box, Typography } from '@mui/material';
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -8,9 +9,18 @@ export const metadata: Metadata = {
 export default async function AdminPage() {
 
   return (
-    <div className=''>
-      <h1 className='font-black text-6xl text-purple-950'></h1>
-      <p className='text-3xl font-bold'>y controla tus {' '} <span className='text-amber-500'>finanzas</span></p>
-    </div>
+
+    <Box
+      sx={{
+        px: { xs: 2, sm: 4, md: 6 },
+        py: { xs: 4, sm: 6 },
+      }}
+    >
+      <Typography variant='h1'>Mis Presupuestos</Typography>
+      <Typography variant='h4'>Maneja y controla tus {' '}
+        <Typography variant='h4' component='span'>presupuestos</Typography>
+      </Typography>
+
+    </Box>
   );
 }
