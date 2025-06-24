@@ -58,10 +58,10 @@ const theme = createTheme({
       textAlign: 'center',
     },
     h2: {
-      fontSize: '2rem',
-      fontWeight: 500,
-      color: '#555',
-      textAlign: 'center',
+      fontSize: '2.5rem',
+      fontWeight: 900, // máximo reconocido por la fuente Outfit
+      color: primaryColor,
+      textAlign: 'left',
     },
     h3: {
       fontSize: '2rem',

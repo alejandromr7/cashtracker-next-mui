@@ -5,7 +5,6 @@ import MenuIcon from '@mui/icons-material/Menu';
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
 import { Avatar, Box, Button, CssBaseline, IconButton, Link, Menu, MenuItem, Tooltip } from '@mui/material';
 import { useState } from 'react';
-import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import NextLink from 'next/link';
 import { logout } from '@/actions/logout-user-action';
 
@@ -81,24 +80,25 @@ export default function AppBarHeader({ handleDrawerOpen, open, user }: Props) {
             {
               marginRight: 5,
             },
-            open && { display: 'none' },
+            open && { display: { xs: 'none', sm: 'block' } },
           ]}
         >
-          <MenuIcon />
+          <MenuIcon sx={{
+            display: { xs: 'none', sm: 'block' }
+          }} />
         </IconButton>
 
-        {/* <AttachMoneyIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} /> */}
         <Link
           href="/admin"
           component={NextLink}
           sx={{
             mr: 2,
-            display: { xs: 'none', md: 'flex' },
+            display: { xs: 'flex' },
             fontWeight: 900,
             letterSpacing: '.2rem',
             color: 'white',
             textDecoration: 'none',
-            fontSize: 20
+            fontSize: { xs: 15, md: 20 }
           }}>
           Cashtracker
         </Link>
@@ -129,26 +129,7 @@ export default function AppBarHeader({ handleDrawerOpen, open, user }: Props) {
             ))}
           </Menu>
         </Box>
-        <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-          {/* <Button
-            onClick={handleCloseNavMenu}
-            sx={{ my: 2, color: 'white', display: 'block' }}
-          >
-            Budgets
-          </Button>
-          <Button
-            onClick={handleCloseNavMenu}
-            sx={{ my: 2, color: 'white', display: 'block' }}
-          >
-            Expenses
-          </Button>
-          <Button
-            onClick={handleCloseNavMenu}
-            sx={{ my: 2, color: 'white', display: 'block' }}
-          >
-            Charts
-          </Button> */}
-        </Box>
+        <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}></Box>
 
         {/* profile */}
         <Box sx={{ flexGrow: 0 }}>
@@ -180,6 +161,16 @@ export default function AppBarHeader({ handleDrawerOpen, open, user }: Props) {
             }}>
               <Typography sx={{ textAlign: 'center' }}>
                 Profile:  {user.name}
+              </Typography>
+            </MenuItem>
+
+            <MenuItem
+              component={NextLink}
+              href="/admin/budgets/new"
+              onClick={handleCloseUserMenu}
+            >
+              <Typography sx={{ textAlign: 'center' }}>
+                Budgets
               </Typography>
             </MenuItem>
 

@@ -20,7 +20,7 @@ export default async function AdminPage() {
       <Grid container gap={5} alignItems="center" justifyContent="space-between">
 
         <Grid>
-          <Typography variant="h2">Mis Presupuestos</Typography>
+          <Typography variant="h2">Crear Presupuesto</Typography>
           <Typography variant="h4">
             Maneja y controla tus{' '}
             <Typography variant="h4" component="span" fontWeight="bold">
@@ -29,11 +29,6 @@ export default async function AdminPage() {
           </Typography>
         </Grid>
 
-        <Grid>
-          <Button href='/admin/budgets/new' LinkComponent={NextLink} variant="contained" sx={{ maxHeight: 35, backgroundColor: '#ffa000', fontWeight: '900' }} disableElevation>
-            Crear Presupuesto
-          </Button>
-        </Grid>
 
 
       </Grid>

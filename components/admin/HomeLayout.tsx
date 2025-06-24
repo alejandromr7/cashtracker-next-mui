@@ -3,25 +3,19 @@ import * as React from 'react';
 import { styled, useTheme, Theme, CSSObject } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import MuiDrawer from '@mui/material/Drawer';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
-import List from '@mui/material/List';
+
 import CssBaseline from '@mui/material/CssBaseline';
 
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import SavingsIcon from '@mui/icons-material/Savings';
-import BarChartIcon from '@mui/icons-material/BarChart';
-import AccountBoxIcon from '@mui/icons-material/AccountBox';
 
 import AppBarHeader from './AppBarHeader';
-import { AttachMoney } from '@mui/icons-material';
+
+import DrawerElements from './DrawerElements';
 
 const drawerWidth = 240;
 
@@ -90,6 +84,7 @@ interface HomeLayoutProps {
 export default function HomeLayout({ user, children }: HomeLayoutProps) {
 
   const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const [open, setOpen] = React.useState(false);
 
   const handleDrawerOpen = () => {
@@ -107,57 +102,20 @@ export default function HomeLayout({ user, children }: HomeLayoutProps) {
 
       <AppBarHeader handleDrawerOpen={handleDrawerOpen} open={open} user={user} />
 
-      <Drawer variant="permanent" open={open}>
+      <Drawer variant="permanent" open={open}
+        sx={{
+          display: { xs: 'none', sm: 'block' },
+          // otros estilos aquí...
+        }}>
         <DrawerHeader>
           <IconButton onClick={handleDrawerClose}>
             {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
           </IconButton>
         </DrawerHeader>
         <Divider />
-        <List>
-          {[
-            { text: 'Dashboard', icon: <BarChartIcon /> },
-            { text: 'Budgets', icon: <SavingsIcon /> },
-            { text: 'Starred', icon: <AttachMoney /> },
-            { text: 'Profile', icon: <AccountBoxIcon /> },
-          ].map(({ text, icon }) => (
-            <ListItem key={text} disablePadding sx={{ display: 'block' }}>
-              <ListItemButton
-                sx={{
-                  minHeight: 48,
-                  justifyContent: open ? 'initial' : 'center',
-                  px: 2.5,
-                  borderRadius: 2,
-                  transition: 'background-color 0.2s',
-                  '&:hover': {
-                    backgroundColor: '#d1c4e9',
-                    color: 'primary.contrastText',
-                  },
-                }}
-              >
-                <ListItemIcon
-                  sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : 'auto',
-                    justifyContent: 'center',
-                    color: 'primary.main',
-                  }}
-                >
-                  {icon}
-                </ListItemIcon>
-                <ListItemText
-                  primary={text}
-                  sx={{
-                    opacity: open ? 1 : 0,
-                    color: 'text.primary',
-                    transition: 'opacity 0.3s',
-                    whiteSpace: 'nowrap',
-                  }}
-                />
-              </ListItemButton>
-            </ListItem>
-          ))}
-        </List>
+
+        <DrawerElements open={open} handleDrawerClose={handleDrawerClose} />
+
         <Divider />
 
       </Drawer>
@@ -166,8 +124,9 @@ export default function HomeLayout({ user, children }: HomeLayoutProps) {
         sx={{
           flexGrow: 1,
           p: { xs: 2, sm: 3 },
+          paddingX: { xs: 2, lg: 10 },
           width: { sm: `calc(100% - ${drawerWidth}px)` },
-          ml: { sm: `${drawerWidth}px` },
+          // ml: { lg: `${drawerWidth}px` },
           transition: (theme) =>
             theme.transitions.create(['margin', 'width'], {
               easing: theme.transitions.easing.sharp,
