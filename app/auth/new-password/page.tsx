@@ -5,8 +5,8 @@ import type { Metadata } from 'next'
 import PasswordResetHandler from '@/components/auth/PasswordResetHandler';
 
 export const metadata: Metadata = {
-  title: 'Cashtracker - Login',
-  description: 'Cashtracker - Login'
+  title: 'Cashtracker - ACTUALIZAR CONTRASEÑA',
+  description: 'Cashtracker - ACTUALIZAR CONTRASEÑA'
 }
 
 export default function NewPasswordPage() {

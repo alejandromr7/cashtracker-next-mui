@@ -1,23 +1,23 @@
 'use client'
 
-import React, { useEffect } from 'react';
-import { Box, TextField, Typography, Button, Container } from '@mui/material';
-import { useFormState } from 'react-dom';
-import { toast } from 'react-toastify';
-import { resetPassword } from '@/actions/reset-password-action';
-import { useRouter } from 'next/navigation';
+import { createBudget } from "@/actions/create-budget-action";
+import { Box, Button, Container, TextField, Typography } from "@mui/material";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
+import { useFormState } from "react-dom";
+import { toast } from "react-toastify";
 
-export default function ResetPasswordForm({ token }: { token: string }) {
+export default function CreateBudgetForm() {
 
   const router = useRouter()
-
-  const resetPasswordWithToken = resetPassword.bind(null, token)
-  const [state, dispatch] = useFormState(resetPasswordWithToken, {
+  const [state, dispatch] = useFormState(createBudget, {
     errors: [],
     success: ''
   })
 
+
   useEffect(() => {
+
     if (state.errors) {
       state.errors.forEach(e => {
         toast.error(e)
@@ -26,19 +26,19 @@ export default function ResetPasswordForm({ token }: { token: string }) {
 
     if (state.success) {
       toast.success(state.success)
-      router.push('/auth/login')
+      router.push('/admin')
     }
 
   }, [state])
 
   return (
-    <Container maxWidth='sm'>
+    <Container maxWidth='lg'>
       <Box
+        // ref={ref}
+        action={dispatch}
         component="form"
         noValidate
-        action={dispatch}
         sx={{
-          mt: 7,
           display: 'flex',
           flexDirection: 'column',
           gap: 3,
@@ -47,50 +47,52 @@ export default function ResetPasswordForm({ token }: { token: string }) {
 
         <Box>
           <Typography variant="h6" fontWeight="bold" gutterBottom>
-            Password
+            Nombre Presupuesto
           </Typography>
           <TextField
             fullWidth
-            type="password"
-            label="Password de Registro"
-            name="password"
-            placeholder="Password de Registro"
+            type="text"
+            label="Nombre Presupuesto"
+            name="name"
+            placeholder="Nombre Presupuesto"
             variant="outlined"
           />
         </Box>
 
         <Box>
           <Typography variant="h6" fontWeight="bold" gutterBottom>
-            Repetir Password
+            Cantidad Presupuesto
           </Typography>
           <TextField
             fullWidth
-            type="password"
-            id="password_confirmation"
-            name="password_confirmation"
-            label="Confirma Password de Registro"
-            placeholder="Confirma Password de Registro"
+            type="text"
+            label="Cantidad Presupuesto"
+            name="amount"
+            placeholder="Cantidad Presupuesto"
             variant="outlined"
           />
         </Box>
+
 
         <Button
           type="submit"
           fullWidth
           variant="contained"
+          disableElevation
           sx={{
+            backgroundColor: '#ffa000',
+            fontWeight: '900',
             mt: 1,
             py: 1,
             fontSize: '1rem',
-            backgroundColor: '#2e1065',
             ':hover': {
-              backgroundColor: '#4a148c',
+              backgroundColor: '#ffa000',
             },
           }}
         >
-          ACTUALIZAR CONTRASEÑA
+          Crear Presupuesto
         </Button>
       </Box>
     </Container>
   );
-}
+};

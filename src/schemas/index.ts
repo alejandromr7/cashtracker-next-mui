@@ -52,3 +52,15 @@ export const ErrorResponseSchema = z.string()
 
 
 export const TokenSchema = z.string({ message: 'Toen is not valid' }).length(6, { message: 'Must be 6 digits' })
+
+
+
+export const DraftBudgetSchema = z.object({
+  name: z.string()
+    .min(1, { message: 'El Nombre del presupuesto es obligatorio' }),
+  amount: z.coerce.
+    number({ message: 'Cantidad no válida' })
+    .min(1, { message: 'Cantidad no válida' }),
+})
+
+

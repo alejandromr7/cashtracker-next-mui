@@ -1,4 +1,5 @@
 import HomeLayout from '@/components/admin/HomeLayout';
+import ToastNotification from '@/components/ui/ToastNotification';
 import { verifySession } from '@/src/auth/dal';
 import type { Metadata } from 'next'
 
@@ -16,6 +17,8 @@ export default async function AdminLayout({ children }: { children: React.ReactN
       <HomeLayout user={user} >
         {children}
       </HomeLayout>
+
+      <ToastNotification />
     </>
   );
 };

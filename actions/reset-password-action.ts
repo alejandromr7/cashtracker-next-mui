@@ -44,10 +44,10 @@ export async function resetPassword(token: string, prevState: Props, formData: F
 
   console.log(resetPasswordInput.data.password)
 
-  // const success = SuccessSchema.parse(json)
+  const success = SuccessSchema.parse(json)
 
   return {
     errors: [],
-    success: 'Password has been updated succesfully'
+    success
   }
 }
