@@ -71,3 +71,5 @@ export const BudgetAPIResponseSchema = z.object({
 })
 
 export const BudgetsAPIResponseSchema = z.array(BudgetAPIResponseSchema)
+
+export const PasswordValidationSchema = z.string().min(8, { message: 'La contrase;a es obligatoria' })

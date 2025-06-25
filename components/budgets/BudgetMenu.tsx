@@ -9,12 +9,16 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { Budget } from '@/src/schemas';
+import { useRouter } from 'next/navigation';
 
 interface Props {
   budgetId: Budget['id']
 }
 
 export default function BudgetMenu({ budgetId }: Props) {
+
+  const router = useRouter()
+
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -64,7 +68,12 @@ export default function BudgetMenu({ budgetId }: Props) {
           </ListItemIcon>
           <Typography variant="inherit">Editar presupuesto</Typography>
         </MenuItem>
-        <MenuItem onClick={handleClose} component={NextLink} href={`/admin/budgets/${budgetId}/delete`} >
+        <MenuItem
+          onClick={() => {
+            router.push(`?deleteBudgetId=${budgetId}`)
+            handleClose()
+          }}
+        >
           <ListItemIcon>
             <DeleteIcon fontSize="small" color="error" />
           </ListItemIcon>
