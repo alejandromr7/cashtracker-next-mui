@@ -1,4 +1,8 @@
-import { Box, Button, Container, Grid, Typography } from '@mui/material';
+import BudgetMenu from '@/components/budgets/BudgetMenu';
+import getToken from '@/src/auth/token';
+import { BudgetsAPIResponseSchema } from '@/src/schemas';
+import { formatCurrency, formatDay } from '@/src/utils';
+import { Box, Button, Container, Divider, Grid, Link, List, ListItem, Typography } from '@mui/material';
 import type { Metadata } from 'next'
 import NextLink from 'next/link';
 
@@ -7,7 +11,26 @@ export const metadata: Metadata = {
   description: ''
 }
 
+async function getBudgets() {
+  const token = getToken();
+  const url = `${process.env.API_URL}/budgets`;
+  const req = await fetch(url, {
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    },
+  })
+
+  const json = await req.json()
+  const budgets = BudgetsAPIResponseSchema.parse(json)
+  return budgets
+
+}
+
 export default async function AdminPage() {
+
+  const budgets = await getBudgets();
+  console.log(budgets.length)
 
   return (
     <Container>
@@ -36,12 +59,55 @@ export default async function AdminPage() {
               Crear Presupuesto
             </Button>
           </Grid>
-
-
         </Grid>
 
+        {budgets.length
+          ? (
+            <List sx={{ border: 1, borderColor: 'grey.300', boxShadow: 2, mt: 5, p: 0 }}>
+              {budgets.map((budget, index) => (
+                <Box key={budget.id}>
+                  <ListItem sx={{ justifyContent: 'space-between', gap: 2, p: 2 }}>
+                    <Box sx={{ minWidth: 0, flexGrow: 1 }}>
+                      <Typography variant="subtitle1" fontWeight="semibold" color="text.primary">
+                        {/* Contenido principal aquí */}
+                        <Link href={`/admin/budgets/${budget.id}`} color="textPrimary" component={NextLink} underline="hover" variant='h5' fontWeight='bold'>
+                          {budget.name}
+                        </Link>
+                      </Typography>
+
+                      <Typography variant="h6" color="secondary" fontWeight="bold">
+                        {/* Información destacada aquí */}
+                        {formatCurrency(budget.amount)}
+                      </Typography>
+                      <Typography variant="body1" color="textSecondary" fontWeight="bold">
+                        Ultima actualizacion {formatDay(budget.updatedAt)}</Typography>
+                    </Box>
+
+                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                      <BudgetMenu budgetId={budget.id} />
+                    </Box>
+                  </ListItem>
+                  {index < budgets.length - 1 && <Divider />}
+                </Box>
+              ))}
+            </List>
+          )
+          : (
+            <Grid display='flex' flexDirection='column' alignItems='center' sx={{ mt: 5, }} gap={1}>
+              <Typography variant="h5" sx={{ fontWeight: '700' }}>
+                No hay presupuestos aun {' '}
+                <Link href='/admin/budgets/new' color="primary" component={NextLink} underline="always">
+                  comienza creando uno
+                </Link>
+              </Typography>
+
+
+
+            </Grid>
+          )}
+
       </Box>
-    </Container>
+    </Container >
 
   );
 }

@@ -44,15 +44,12 @@ export const ResetPasswordSchema = z.object({
 });
 
 export type User = z.infer<typeof UserSchema>
+export type Budget = z.infer<typeof BudgetAPIResponseSchema>
 
 export const SuccessSchema = z.string()
 export const ErrorResponseSchema = z.string()
 
-
-
-
 export const TokenSchema = z.string({ message: 'Toen is not valid' }).length(6, { message: 'Must be 6 digits' })
-
 
 
 export const DraftBudgetSchema = z.object({
@@ -64,3 +61,13 @@ export const DraftBudgetSchema = z.object({
 })
 
 
+export const BudgetAPIResponseSchema = z.object({
+  id: z.number(),
+  name: z.string(),
+  amount: z.number(),
+  userId: z.number(),
+  createdAt: z.string(),
+  updatedAt: z.string()
+})
+
+export const BudgetsAPIResponseSchema = z.array(BudgetAPIResponseSchema)

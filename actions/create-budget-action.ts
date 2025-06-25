@@ -1,5 +1,7 @@
 'use server'
+import getToken from "@/src/auth/token"
 import { DraftBudgetSchema, ErrorResponseSchema, RegisterSchema, SuccessSchema } from "@/src/schemas"
+import { revalidatePath } from "next/cache"
 import { cookies } from "next/headers"
 
 interface Props {
@@ -22,8 +24,7 @@ export async function createBudget(prevState: Props, formData: FormData) {
     }
   }
 
-  const token = cookies().get('chastracker-token')?.value;
-
+  const token = getToken();
   const url = `${process.env.API_URL}/budgets`;
   const req = await fetch(url, {
     method: 'POST',
@@ -49,6 +50,7 @@ export async function createBudget(prevState: Props, formData: FormData) {
 
   console.log(json)
   const success = SuccessSchema.parse(json)
+  revalidatePath('/admin')
 
   return {
     errors: [],
