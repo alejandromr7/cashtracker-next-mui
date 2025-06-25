@@ -1,5 +1,4 @@
 'use client'
-
 import { createBudget } from "@/actions/create-budget-action";
 import { Box, Button, Container, TextField, Typography } from "@mui/material";
 import { useRouter } from "next/navigation";
@@ -7,11 +6,14 @@ import { useEffect } from "react";
 import { useFormState } from "react-dom";
 import { toast } from "react-toastify";
 import BudgetForm from "./BudgetForm";
+import { Budget } from "@/src/schemas";
+import { editBudget } from "@/actions/edit-budget-action";
 
-export default function CreateBudgetForm() {
+export default function EditBudgetForm({ budget }: { budget: Budget }) {
 
   const router = useRouter()
-  const [state, dispatch] = useFormState(createBudget, {
+  const editBudgetWithId = editBudget.bind(null, budget.id)
+  const [state, dispatch] = useFormState(editBudgetWithId, {
     errors: [],
     success: ''
   })
@@ -46,7 +48,7 @@ export default function CreateBudgetForm() {
         }}
       >
 
-        <BudgetForm />
+        <BudgetForm budget={budget} />
 
         <Button
           type="submit"
@@ -64,7 +66,7 @@ export default function CreateBudgetForm() {
             },
           }}
         >
-          Crear Presupuesto
+          Guardar Cambios
         </Button>
       </Box>
     </Container>

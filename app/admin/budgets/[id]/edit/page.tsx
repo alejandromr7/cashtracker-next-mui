@@ -4,33 +4,17 @@ import type { Metadata } from 'next'
 import { Box, Button, Container, Grid, Typography } from '@mui/material';
 import NextLink from 'next/link';
 import { notFound } from 'next/navigation';
-import theme from '@/app/theme';
+import EditBudgetForm from '@/components/budgets/EditBudgetForm';
+import { cache } from 'react';
+import { getBudget } from '@/src/services/budgets';
 
-export const metadata: Metadata = {
-  title: '',
-  description: ''
-}
 
-const getBudget = async (id: string) => {
-  const token = getToken();
-  const url = `${process.env.API_URL}/budgets/${id}`;
-  const req = await fetch(url, {
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token}`
-    }
-  })
-
-  if (!req.ok) {
-    notFound()
+export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {
+  const budget = await getBudget(params.id)
+  return {
+    title: `CASHTRACKER - ${budget.name}`,
+    description: `${budget.name}`
   }
-
-
-  const json = await req.json()
-  const budget = BudgetAPIResponseSchema.parse(json)
-  return budget
-
-
 }
 
 export default async function EditBudgetPage({ params }: { params: { id: string } }) {
@@ -81,7 +65,7 @@ export default async function EditBudgetPage({ params }: { params: { id: string 
           }}
         >
 
-
+          <EditBudgetForm budget={budget} />
         </Box>
 
       </Box>
